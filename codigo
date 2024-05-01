@@ -1,0 +1,42 @@
+import pygame
+import random
+
+# Configuración de la pantalla
+WIDTH, HEIGHT = 800, 600
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Generación Procedural")
+
+# Colores
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+
+def generate_terrain():
+    terrain = []
+    for x in range(WIDTH):
+        y = random.randint(HEIGHT // 2, HEIGHT)
+        terrain.append((x, y))
+    return terrain
+
+def draw_terrain(terrain):
+    pygame.draw.polygon(WIN, GREEN, terrain)
+    pygame.display.update()
+
+def main():
+    run = True
+    clock = pygame.time.Clock()
+
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+        
+        WIN.fill(WHITE)
+        terrain = generate_terrain()
+        draw_terrain(terrain)
+        
+        clock.tick(30)
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
